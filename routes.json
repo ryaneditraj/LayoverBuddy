@@ -1,0 +1,24 @@
+{
+    "New York": [
+        "Dubai",
+        "Doha",
+        "Istanbul",
+        "Singapore"
+    ],
+
+    "London": [
+        "Dubai",
+        "Amsterdam",
+        "Doha"
+    ],
+
+    "Toronto": [
+        "Istanbul",
+        "Dubai"
+    ],
+
+    "Tokyo": [
+        "Singapore",
+        "Seoul"
+    ]
+}
