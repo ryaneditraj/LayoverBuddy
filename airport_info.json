@@ -1,0 +1,22 @@
+{
+    "Singapore": {
+        "airport_score": 98,
+        "city_time": 30,
+  "best_hours": 8,
+        "note": "Great airport and easy city access."
+    },
+
+    "Dubai": {
+        "airport_score": 90,
+        "city_time": 25,
+        "best_hours": 6,
+        "note": "Good airport with many facilities."
+    },
+
+    "Istanbul": {
+        "airport_score": 92,
+        "city_time": 40,
+        "best_hours": 8,
+        "note": "Good option for longer layovers."
+    }
+}
