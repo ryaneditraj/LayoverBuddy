@@ -227,4 +227,4 @@ def stats():
 
 
 
-app.run(debug=True, port=80)
+app.run()
