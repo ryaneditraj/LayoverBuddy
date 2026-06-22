@@ -1,24 +1,42 @@
 {
     "New York": [
-        "Dubai",
-        "Doha",
+        "Singapore",
         "Istanbul",
-        "Singapore"
+        "Dubai",
+        "Doha"
     ],
 
     "London": [
-        "Dubai",
         "Amsterdam",
+        "Dubai",
         "Doha"
     ],
 
     "Toronto": [
         "Istanbul",
-        "Dubai"
+        "Dubai",
+        "Amsterdam"
     ],
 
     "Tokyo": [
         "Singapore",
         "Seoul"
+    ],
+
+    "Paris": [
+        "Amsterdam",
+        "Istanbul"
+    ],
+
+    "Los Angeles": [
+        "Singapore",
+        "Seoul",
+        "Dubai"
+    ],
+
+    "Chicago": [
+        "Istanbul",
+        "Doha",
+        "Amsterdam"
     ]
 }

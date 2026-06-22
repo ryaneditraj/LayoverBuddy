@@ -1,0 +1,41 @@
+{
+    "Singapore": [
+        "Marina Bay Sands",
+        "Gardens by the Bay",
+        "Merlion",
+        "Chinatown",
+        "Sentosa"
+    ],
+
+    "Dubai": [
+        "Burj Khalifa",
+        "Dubai Mall",
+        "Dubai Frame",
+        "Museum of the Future"
+    ],
+
+    "Istanbul": [
+        "Hagia Sophia",
+        "Blue Mosque",
+        "Grand Bazaar",
+        "Galata Tower"
+    ],
+
+    "Doha": [
+        "Souq Waqif",
+        "Museum of Islamic Art",
+        "Corniche"
+    ],
+
+    "Amsterdam": [
+        "Dam Square",
+        "Rijksmuseum",
+        "Canal Cruise"
+    ],
+
+    "Seoul": [
+        "Gyeongbokgung Palace",
+        "Myeongdong",
+        "N Seoul Tower"
+    ]
+}

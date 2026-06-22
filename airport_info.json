@@ -2,21 +2,42 @@
     "Singapore": {
         "airport_score": 98,
         "city_time": 30,
-  "best_hours": 8,
-        "note": "Great airport and easy city access."
+        "best_hours": 8,
+        "note": "One of the best airports in the world."
     },
 
     "Dubai": {
         "airport_score": 90,
         "city_time": 25,
-        "best_hours": 6,
-        "note": "Good airport with many facilities."
+     "best_hours": 6,
+        "note": "Large airport with many facilities."
     },
 
     "Istanbul": {
-        "airport_score": 92,
+     "airport_score": 92,
         "city_time": 40,
         "best_hours": 8,
-        "note": "Good option for longer layovers."
+        "note": "Good for long layovers."
+    },
+
+    "Doha": {
+        "airport_score": 89,
+        "city_time": 20,
+        "best_hours": 6,
+        "note": "Modern airport and easy access."
+    },
+
+    "Amsterdam": {
+        "airport_score": 91,
+        "city_time": 20,
+        "best_hours": 8,
+        "note": "Easy train access to city."
+    },
+
+    "Seoul": {
+        "airport_score": 95,
+        "city_time": 45,
+        "best_hours": 8,
+        "note": "Great airport and transit."
     }
 }

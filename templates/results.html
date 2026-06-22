@@ -1,29 +1,153 @@
-<h1>{{ from_city }} → {{ to_city }}</h1>
+<!DOCTYPE html>
+<html>
 
-<h3>Best Layovers</h3>
+<head>
+
+    <title>Results</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 25px;
+        }
+
+        .top {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .card {
+
+            background: white;
+
+            margin-top: 20px;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            box-shadow:
+             0px 2px 5px
+       rgba(0,0,0,0.1);
+        }
+
+        .score {
+
+            font-size: 20px;
+            font-weight: bold;
+
+        }
+
+        .recommend {
+
+            padding: 8px;
+
+            background: #eeeeee;
+
+            border-radius: 5px;
+
+            margin-top: 10px;
+
+        }
+
+        a {
+
+            text-decoration: none;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="top">
+
+<h1>
+{{ from_city }} → {{ to_city }}
+</h1>
+
+<p>
+{{ results>length }}
+ layovers found.
+</p>
 
 {% for item in results %}
 
-<div>
+<div class="card">
 
-    <h4>{{ item.name }}</h4>
+    <h2>
 
-    <p>
+        {{ item.name }}
+
+    </h2>
+
+    <p class="score">
+
         Final Score:
         {{ item.final_score }}
+
     </p>
 
     <p>
-        City Time:
-        {{ item.city_time }} mins
+   Airport Score:
+        {{ item.airport_score }}
+
     </p>
 
     <p>
+
+        Time To City:
+        {{ item.city_time }}
+        mins
+
+    </p>
+
+    <p>
+
+        Recommended Layover:
+        {{ item.best_hours }}
+        hours
+
+    </p>
+
+    <p>
+
         {{ item.note }}
+
     </p>
+
+    <div class="recommend">
+
+        {{ item.recommendation }}
+
+    </div>
+
+    <br>
+
+    <a href="/airport?name={{ item.name }}">
+
+  View Airport Details
+
+    </a>
 
 </div>
 
-<hr>
-
 {% endfor %}
+
+<br>
+
+<a href="/">
+
+Back To Search
+
+</a>
+
+</div>
+
+</body>
+
+</html>
