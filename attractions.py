@@ -1,45 +1,17 @@
-import json
+from storage import load_json
 
 
 def get_attractions_data():
-
-    file = open(
-        "attractions.json",
-        "r"
-    )
-
-    data = json.load(
-        file
-    )
-
-    file.close()
-
-    return data
+    return load_json("attractions.json")
 
 
-def get_attractions(
-    city
-):
-
+def get_attractions(city):
     data = get_attractions_data()
-
     if city in data:
-
-     return data[
-            city
-     ]
+        return data[city]
 
     return []
 
 
-def get_attraction_count(
-    city
-):
-
-    attractions = get_attractions(
-        city
-    )
-
-    return len(
-        attractions
-    )
+def get_attraction_count(city):
+    return len(get_attractions(city))

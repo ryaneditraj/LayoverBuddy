@@ -1,0 +1,29 @@
+# Served at /robots.txt. LayoverBuddy replaces __SITE_URL__ with SITE_URL
+# or the request origin before the file is sent.
+
+User-agent: *
+Allow: /
+
+# Answer-engine and search crawlers are welcome to read the public pages.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: __SITE_URL__/sitemap.xml

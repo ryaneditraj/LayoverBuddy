@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page_title }}</title>
+    <meta name="description" content="{{ page_description }}">
+    <meta name="author" content="Ryan Editraj">
+    <meta name="application-name" content="LayoverBuddy">
+    <meta name="keywords" content="layover comparison, best layover airports, layover city ranking, long layover guide, transit airport, connection city, flight layover planner, airport score, time to city, LayoverBuddy">
+    <meta name="robots" content="{{ robots }}">
+    <meta name="theme-color" content="#f4efe6">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="LayoverBuddy">
+    <meta property="og:title" content="{{ page_title }}">
+    <meta property="og:description" content="{{ page_description }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:image" content="{{ og_image }}">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_title }}">
+    <meta name="twitter:description" content="{{ page_description }}">
+    <meta name="twitter:image" content="{{ og_image }}">
+    <meta name="twitter:creator" content="@ryaneditraj">
+
+    <script type="application/ld+json" nonce="{{ csp_nonce }}">{{ json_ld|safe }}</script>
+</head>
+<body>
+    <a class="skip" href="#content">Skip to content</a>
+    <header class="site-header">
+        <a class="wordmark" href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='favicon.svg') }}" width="28" height="28" alt="">
+            LayoverBuddy
+        </a>
+        <nav aria-label="Primary">
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('stats') }}">Statistics</a>
+        </nav>
+    </header>
+    <main id="content">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+        <p>Sample routes and scores. LayoverBuddy does not show live fares or book flights.</p>
+        <p>
+            Built by
+            <a rel="me" href="https://github.com/ryaneditraj">Ryan Editraj</a>
+            ·
+            <a rel="me" href="https://instagram.com/ryaneditraj">Instagram</a>
+        </p>
+    </footer>
+</body>
+</html>

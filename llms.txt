@@ -1,0 +1,41 @@
+# LayoverBuddy
+
+> LayoverBuddy ranks layover cities by airport quality, time into town, and how long a connection is worth, so a traveler can compare the stop instead of looking only at the fare.
+
+LayoverBuddy is an open-source Flask app by Ryan Editraj. It is a sample-data layover planner, not a live flight search and not a booking site. Routes, scores, airport facts, and attractions live in JSON files in the repository.
+
+The destination city selects the layover list. The origin city is shown on the result and stored only in the page URL. Two trips with the same destination currently share the same connections.
+
+A layover score is layover score + airport score + a city-access bonus + a duration bonus.
+
+- City access: 15 points at 30 minutes or less, 8 points at 45 minutes or less, otherwise 2.
+- Duration: 15 points when the recommended stop is 8 hours or more, 10 points at 6 hours or more, otherwise 5.
+- Bands: 190+ excellent, 170+ very good, 150+ good, 120+ average, otherwise not recommended.
+
+With the data shipped today, Chennai to New York ranks Singapore (223), Istanbul (207), Dubai (200), then Doha (194).
+
+## Pages
+
+- [Home](/): search form and example trips
+- [About](/about): what the project does, and the FAQ
+- [Statistics](/stats): airport count, best airport, average layover score
+- [Airport](/airport?name=Singapore): one city's score, city time, recommended hours, note, and attractions
+- [Search](/search?from_city=Chennai&to_city=New%20York): ranked layovers for a trip
+
+## Cities in the sample set
+
+Layover cities: Singapore, Istanbul, Dubai, Doha, Amsterdam, Seoul.
+
+Destinations: New York, London, Toronto, Tokyo, Paris, Los Angeles, Chicago.
+
+## Project
+
+- Repository: https://github.com/ryaneditraj/LayoverBuddy
+- Author: Ryan Editraj — https://github.com/ryaneditraj and https://instagram.com/ryaneditraj
+- License: MIT
+- Stack: Python, Flask, HTML, CSS, JSON
+
+## Optional
+
+- [Contributing](https://github.com/ryaneditraj/LayoverBuddy/blob/main/CONTRIBUTING.md)
+- [Security policy](https://github.com/ryaneditraj/LayoverBuddy/blob/main/SECURITY.md)

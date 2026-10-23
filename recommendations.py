@@ -1,96 +1,65 @@
-def get_recommendation(
-    score
-):
-
+def get_recommendation(score):
     if score >= 190:
-
-        return (
-            "Excellent layover. "
-            "Highly recommended."
-        )
+        return "Excellent layover. Highly recommended."
 
     if score >= 170:
-
-        return (
-            "Very good option."
-        )
+        return "Very good option."
 
     if score >= 150:
-
-        return (
-            "Good option."
-        )
+        return "Good option."
 
     if score >= 120:
+        return "Average option."
 
-        return (
-            "Average option."
-        )
-
-    return (
-        "Not recommended."
-    )
+    return "Not recommended."
 
 
-def get_layover_type(
-    hours
-):
+def get_recommendation_tier(score):
+    """CSS hook for the same bands as get_recommendation."""
 
+    if score >= 190:
+        return "excellent"
+
+    if score >= 170:
+        return "very-good"
+
+    if score >= 150:
+        return "good"
+
+    if score >= 120:
+        return "average"
+
+    return "poor"
+
+
+def get_layover_type(hours):
     if hours < 4:
-
         return "Short"
 
     if hours < 8:
-
         return "Medium"
 
     return "Long"
 
 
-def get_city_access_text(
-    minutes
-):
-
+def get_city_access_text(minutes):
     if minutes <= 30:
-
-        return (
-            "Easy city access"
-        )
+        return "Easy city access"
 
     if minutes <= 45:
+        return "Moderate city access"
 
-        return (
-            "Moderate city access"
-        )
-
-    return (
-     "Long travel time"
-    )
+    return "Long travel time"
 
 
-def score_explanation(
-    score
-):
-
+def score_explanation(score):
     if score >= 190:
-
-        return (
-            "Airport quality, city access "
-            "and attractions are excellent."
-        )
+        return "Airport quality, city access and attractions are excellent."
 
     if score >= 170:
-
-        return (
-            "Strong airport and good city access."
-        )
+        return "Strong airport and good city access."
 
     if score >= 150:
+        return "Decent layover choice."
 
-        return (
-            "Decent layover choice."
-        )
-
-    return (
-        "Limited advantages."
-    )
+    return "Limited advantages."

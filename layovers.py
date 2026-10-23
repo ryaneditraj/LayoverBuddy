@@ -1,226 +1,105 @@
-import json
+from storage import load_json
+
+
+def _match_key(data, name):
+    if name is None:
+        return None
+
+    cleaned = " ".join(str(name).split())
+    if not cleaned:
+        return None
+
+    if cleaned in data:
+        return cleaned
+
+    folded = cleaned.casefold()
+    for key in data:
+        if str(key).casefold() == folded:
+            return key
+
+    return None
 
 
 def get_layovers(destination):
+    data = load_json("routes.json")
+    key = _match_key(data, destination)
+    if key is None:
+        return []
 
-    file = open(
-        "routes.json",
-        "r"
-    )
-
-    data = json.load(
-        file
-    )
-
-    file.close()
-
-    if destination in data:
-
-        return data[
-            destination
-        ]
-
-    return []
+    return data[key]
 
 
 def get_scores():
-
-    file = open(
-        "scores.json",
-        "r"
-    )
-
-    data = json.load(
-        file
-    )
-
-    file.close()
-
-    return data
+    return load_json("scores.json")
 
 
-def calculate_final_score(
-    place,
-    scores,
-    airport_data
-):
+def score_breakdown(place, scores, airport_data):
+    """Return the pieces that add up to a layover score.
 
-    layover_score = scores.get(
-        place,
-        0
-    )
+    The bonuses match the original rules: quicker city access and a longer
+    worthwhile connection both raise the total.
+    """
 
-    airport_score = airport_data.get(
-        place,
-        {}
-    ).get(
-        "airport_score",
-        0
-    )
-
-    city_time = airport_data.get(
-        place,
-        {}
-    ).get(
-        "city_time",
-        60
-    )
-
-    best_hours = airport_data.get(
-        place,
-        {}
-    ).get(
-        "best_hours",
-        4
-    )
-
-    score = 0
-
-    score += layover_score
-
-    score += airport_score
+    info = airport_data.get(place, {})
+    layover_score = scores.get(place, 0)
+    airport_score = info.get("airport_score", 0)
+    city_time = info.get("city_time", 60)
+    best_hours = info.get("best_hours", 4)
 
     if city_time <= 30:
-
-        score += 15
-
+        city_bonus = 15
     elif city_time <= 45:
-
-        score += 8
-
+        city_bonus = 8
     else:
-
-        score += 2
+        city_bonus = 2
 
     if best_hours >= 8:
-
-        score += 15
-
+        duration_bonus = 15
     elif best_hours >= 6:
-
-        score += 10
-
+        duration_bonus = 10
     else:
+        duration_bonus = 5
 
-        score += 5
+    return {
+        "layover_score": layover_score,
+        "airport_score": airport_score,
+        "city_bonus": city_bonus,
+        "duration_bonus": duration_bonus,
+        "total": layover_score + airport_score + city_bonus + duration_bonus,
+    }
 
-    return score
+
+def calculate_final_score(place, scores, airport_data):
+    return score_breakdown(place, scores, airport_data)["total"]
 
 
-def get_top_layovers(
-    destination,
-    amount=3
-):
-
-    places = get_layovers(
-      destination
-    )
-
+def get_top_layovers(destination, amount=3):
+    places = get_layovers(destination)
     scores = get_scores()
-
-    temp = []
-
-    for place in places:
-
-        score = scores.get(
-            place,
-            0
-        )
-
-        temp.append(
-            {
-                "name": place,
-                "score": score
-            }
-        )
-
-    temp.sort(
-        key=lambda x: x["score"],
-        reverse=True
-    )
-
-    return temp[:amount]
+    ranked = [
+        {"name": place, "score": scores.get(place, 0)}
+        for place in places
+    ]
+    ranked.sort(key=lambda item: item["score"], reverse=True)
+    return ranked[:amount]
 
 
-def route_exists(
-    destination
-):
-
-    file = open(
-        "routes.json",
-        "r"
-    )
-
-    data = json.load(
-        file
-    )
-
-    file.close()
-
-    return destination in data
+def route_exists(destination):
+    return _match_key(load_json("routes.json"), destination) is not None
 
 
 def get_destination_count():
-
-    file = open(
-        "routes.json",
-        "r"
-    )
-
-    data = json.load(
-        file
-    )
-
-    file.close()
-
-    return len(data)
+    return len(load_json("routes.json"))
 
 
 def get_all_destinations():
-
-    file = open(
-        "routes.json",
-        "r"
-    )
-
-    data = json.load(
-        file
-    )
-
-    file.close()
-
-    result = []
-
-    for item in data:
-
-        result.append(
-            item
-        )
-
-    return result
+    return list(load_json("routes.json"))
 
 
 def get_average_score():
-
     scores = get_scores()
+    if not scores:
+        return 0
 
-    total = 0
-
-    count = 0
-
-    for airport in scores:
-
-        total += scores[
-            airport
-        ]
-
-        count += 1
-
-    if count == 0:
-
-     return 0
-
-    return round(
-        total / count,
-        2
-    )
+    total = sum(scores.values())
+    return round(total / len(scores), 2)

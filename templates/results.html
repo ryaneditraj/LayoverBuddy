@@ -1,153 +1,80 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-
-    <title>Results</title>
-
-    <style>
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f0f0f0;
-            padding: 25px;
-        }
-
-        .top {
-            max-width: 1000px;
-            margin: auto;
-        }
-
-        .card {
-
-            background: white;
-
-            margin-top: 20px;
-
-            padding: 20px;
-
-            border-radius: 10px;
-
-            box-shadow:
-             0px 2px 5px
-       rgba(0,0,0,0.1);
-        }
-
-        .score {
-
-            font-size: 20px;
-            font-weight: bold;
-
-        }
-
-        .recommend {
-
-            padding: 8px;
-
-            background: #eeeeee;
-
-            border-radius: 5px;
-
-            margin-top: 10px;
-
-        }
-
-        a {
-
-            text-decoration: none;
-
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-<div class="top">
-
-<h1>
-{{ from_city }} → {{ to_city }}
-</h1>
-
-<p>
-{{ results|length }}
- layovers found.
-</p>
-
-{% for item in results %}
-
-<div class="card">
-
-    <h2>
-
-        {{ item.name }}
-
-    </h2>
-
-    <p class="score">
-
-        Final Score:
-        {{ item.final_score }}
-
+{% block content %}
+<header class="page-intro">
+    <p class="eyebrow">Ranked connections</p>
+    <h1>{{ from_city or "Any city" }} → {{ to_city or "Any city" }}</h1>
+    <p class="lede">
+        {{ results|length }} layover{{ "" if results|length == 1 else "s" }} found.
+        Higher scores combine the layover rating, airport rating, city access, and how long the stop is worth.
     </p>
+</header>
 
-    <p>
-   Airport Score:
-        {{ item.airport_score }}
+{% if results %}
+<ol class="results">
+    {% for item in results %}
+    <li class="card{% if loop.first %} is-first{% endif %}">
+        <div class="card-top">
+            <p class="rank">{{ loop.index }}</p>
+            <div>
+                <h2>{{ item.name }}</h2>
+                <p class="meta">
+                    {{ item.layover_type }} layover
+                    · {{ item.city_access }}
+                </p>
+            </div>
+            <p class="score">
+                <span class="score-value">{{ item.final_score }}</span>
+                <span class="score-label">score</span>
+            </p>
+        </div>
+        <progress max="250" value="{{ item.final_score }}">{{ item.final_score }} out of 250</progress>
+        <p class="recommend tier-{{ item.tier }}">{{ item.recommendation }}</p>
+        <dl class="facts">
+            <div>
+                <dt>Airport score</dt>
+                <dd>{{ item.airport_score }}</dd>
+            </div>
+            <div>
+                <dt>Time to city</dt>
+                <dd>{{ item.city_time }} min</dd>
+            </div>
+            <div>
+                <dt>Worth staying</dt>
+                <dd>{{ item.best_hours }} hr</dd>
+            </div>
+            <div>
+                <dt>City bonus</dt>
+                <dd>+{{ item.breakdown.city_bonus }}</dd>
+            </div>
+        </dl>
+        <p>{{ item.note }}</p>
+        {% if item.attractions %}
+        <ul class="pills" aria-label="Attractions in {{ item.name }}">
+            {% for attraction in item.attractions %}
+            <li>{{ attraction }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <a class="text-link" href="{{ url_for('airport_page', name=item.name) }}">View airport details</a>
+    </li>
+    {% endfor %}
+</ol>
+{% else %}
+<section class="panel empty">
+    <h2>No layovers for that destination</h2>
+    <p>The sample routes are stored by destination city. Try one of these:</p>
+    <ul class="pills">
+        {% for trip in trips %}
+        <li>
+            <a href="{{ url_for('search', from_city=trip.from_city, to_city=trip.to_city) }}">
+                {{ trip.from_city }} → {{ trip.to_city }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
 
-    </p>
-
-    <p>
-
-        Time To City:
-        {{ item.city_time }}
-        mins
-
-    </p>
-
-    <p>
-
-        Recommended Layover:
-        {{ item.best_hours }}
-        hours
-
-    </p>
-
-    <p>
-
-        {{ item.note }}
-
-    </p>
-
-    <div class="recommend">
-
-        {{ item.recommendation }}
-
-    </div>
-
-    <br>
-
-    <a href="/airport?name={{ item.name }}">
-
-  View Airport Details
-
-    </a>
-
-</div>
-
-{% endfor %}
-
-<br>
-
-<a href="/">
-
-Back To Search
-
-</a>
-
-</div>
-
-</body>
-
-</html>
+<p class="back"><a href="{{ url_for('home') }}">Back to search</a></p>
+{% endblock %}

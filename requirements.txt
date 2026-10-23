@@ -1,1 +1,9 @@
-flask
+# Pinned on 2026-10-23 after a PyPI advisory check of this set.
+# Jinja2 is pinned to 3.1.6 so installs do not keep the vulnerable 3.1.2 line.
+flask==3.1.3
+werkzeug==3.1.9
+jinja2==3.1.6
+markupsafe==3.0.4
+itsdangerous==2.2.0
+click==8.5.0
+blinker==1.9.0
