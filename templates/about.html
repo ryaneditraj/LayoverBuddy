@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="prose">
+    <p class="eyebrow">About</p>
+    <h1>A better way to read a connection.</h1>
+    <p>
+        Most flight sites stop at price and schedule. LayoverBuddy is for the
+        hours in between: which airport you will stand in, how quickly you can
+        reach the city, and whether the stop is long enough to be worth it.
+    </p>
+    <p>
+        The rankings use a sample dataset in this repository. They are a way
+        to compare cities such as Singapore, Istanbul, Dubai, and Doha on a
+        trip like Chennai to New York. They are not live airline results.
+    </p>
+
+    <h2 id="faq">Questions travelers ask</h2>
+    {% for item in faqs %}
+    <details class="faq"{% if loop.first %} open{% endif %}>
+        <summary>{{ item.question }}</summary>
+        <p>{{ item.answer }}</p>
+    </details>
+    {% endfor %}
+</article>
+{% endblock %}

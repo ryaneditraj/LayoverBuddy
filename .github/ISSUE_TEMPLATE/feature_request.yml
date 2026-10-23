@@ -1,0 +1,22 @@
+name: Feature request
+description: Suggest a route, airport, or improvement
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is missing?
+      description: The trip, city, or workflow this would help.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What should LayoverBuddy do?
+    validations:
+      required: true
+  - type: textarea
+    id: data
+    attributes:
+      label: Data you can contribute
+      description: Optional airport score, time to the city, recommended hours, or attractions. Sample data only; do not paste private trip details you do not want public.

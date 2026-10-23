@@ -1,0 +1,30 @@
+name: Bug report
+description: Something in LayoverBuddy does not work the way the README describes
+title: "[Bug]: "
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, and what the page or command showed.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: input
+    id: route
+    attributes:
+      label: Page or command
+      placeholder: /search?from_city=Chennai&to_city=New York
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Python version, operating system, and whether you used python app.py or another server.
+      placeholder: Python 3.12, macOS, python app.py
+    validations:
+      required: true

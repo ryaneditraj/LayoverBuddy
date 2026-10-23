@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-intro">
+    <p class="eyebrow">Sample set</p>
+    <h1>Statistics</h1>
+    <p class="lede">Counts and scores from the JSON files that ship with LayoverBuddy.</p>
+</header>
+<section class="stat-grid" aria-label="Dataset statistics">
+    <article>
+        <p class="stat-value">{{ airport_count }}</p>
+        <p class="stat-label">Airports</p>
+    </article>
+    <article>
+        <p class="stat-value">{{ destination_count }}</p>
+        <p class="stat-label">Destinations</p>
+    </article>
+    <article>
+        <p class="stat-value">{{ best_airport }}</p>
+        <p class="stat-label">Best airport · {{ best_score }}</p>
+    </article>
+    <article>
+        <p class="stat-value">{{ average_score }}</p>
+        <p class="stat-label">Average layover score</p>
+    </article>
+</section>
+<p class="back"><a href="{{ url_for('home') }}">Back to search</a></p>
+{% endblock %}

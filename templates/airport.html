@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="page-intro">
+    <p class="eyebrow">Airport</p>
+    {% if found %}
+    <h1>{{ name }}</h1>
+    <p class="lede">{{ airport.note }}</p>
+    <dl class="facts facts-large">
+        <div>
+            <dt>Airport score</dt>
+            <dd>{{ airport.airport_score }}</dd>
+        </div>
+        <div>
+            <dt>Time to city</dt>
+            <dd>{{ airport.city_time }} min</dd>
+        </div>
+        <div>
+            <dt>Best layover</dt>
+            <dd>{{ airport.best_hours }} hr</dd>
+        </div>
+    </dl>
+    {% if attractions %}
+    <h2>Attractions</h2>
+    <ul class="pills">
+        {% for attraction in attractions %}
+        <li>{{ attraction }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% else %}
+    <h1>Airport not in the sample set</h1>
+    <p class="lede">“{{ name }}” is not one of the airports LayoverBuddy ranks yet.</p>
+    {% endif %}
+    <p class="back"><a href="{{ url_for('home') }}">Back to search</a></p>
+</article>
+{% endblock %}

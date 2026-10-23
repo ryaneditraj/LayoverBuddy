@@ -1,119 +1,68 @@
-import json
+from storage import load_json
 
 
 def get_airport_data():
-    file = open(
-        "airport_info.json",
-        "r"
-  )
-
-    data = json.load(
-        file
-    )
-
-    file.close()
-
-    return data
+    return load_json("airport_info.json")
 
 
-def get_airport(
-    airport_name
-):
+def resolve_airport_name(name):
+    """Return the stored airport key, ignoring case and extra whitespace."""
+
+    if name is None:
+        return None
+
+    cleaned = " ".join(str(name).split())
+    if not cleaned:
+        return None
 
     data = get_airport_data()
+    if cleaned in data:
+        return cleaned
 
-    if airport_name in data:
+    folded = cleaned.casefold()
+    for key in data:
+        if str(key).casefold() == folded:
+            return key
 
-        return data[
-            airport_name
-        ]
-
-    return {}
-
-
-def airport_exists(
-    airport_name
-):
-
-    data = get_airport_data()
-
-    return airport_name in data
+    return None
 
 
-def get_airport_score(
-    airport_name
-):
+def get_airport(airport_name):
+    key = resolve_airport_name(airport_name)
+    if key is None:
+        return {}
 
-    airport = get_airport(
-        airport_name
-    )
-
-    return airport.get(
-        "airport_score",
-        0
-    )
+    return get_airport_data()[key]
 
 
-def get_city_time(
-    airport_name
-):
-
-    airport = get_airport(
-        airport_name
-    )
-
-    return airport.get(
-        "city_time",
-        0
-    )
+def airport_exists(airport_name):
+    return resolve_airport_name(airport_name) is not None
 
 
-def get_best_hours(
-    airport_name
-):
-
-    airport = get_airport(
-        airport_name
-    )
-
-    return airport.get(
-        "best_hours",
-        0
-    )
+def get_airport_score(airport_name):
+    return get_airport(airport_name).get("airport_score", 0)
 
 
-def get_airport_note(
-    airport_name
-):
+def get_city_time(airport_name):
+    return get_airport(airport_name).get("city_time", 0)
 
-    airport = get_airport(
-        airport_name
-    )
 
-    return airport.get(
-        "note",
-        ""
-    )
+def get_best_hours(airport_name):
+    return get_airport(airport_name).get("best_hours", 0)
+
+
+def get_airport_note(airport_name):
+    return get_airport(airport_name).get("note", "")
 
 
 def get_best_airport():
-
     data = get_airport_data()
-
     best_score = 0
     best_airport = ""
 
-    for airport in data:
-
-        score = data[
-            airport
-        ].get(
-            "airport_score",
-            0
-        )
-
+    for airport, info in data.items():
+        score = info.get("airport_score", 0)
         if score > best_score:
-
             best_score = score
             best_airport = airport
 
@@ -121,28 +70,16 @@ def get_best_airport():
 
 
 def get_airport_count():
-
-    data = get_airport_data()
-
-    return len(data)
+    return len(get_airport_data())
 
 
-def search_airports(
-    text
-):
+def search_airports(text):
+    if not text:
+        return []
 
-    data = get_airport_data()
-
-    results = []
-
-    text = text.lower()
-
-    for airport in data:
-
-        if text in airport.lower():
-
-            results.append(
-                airport
-            )
-
-    return results
+    folded = str(text).casefold()
+    return [
+        airport
+        for airport in get_airport_data()
+        if folded in str(airport).casefold()
+    ]
